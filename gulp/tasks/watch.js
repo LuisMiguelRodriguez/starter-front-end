@@ -21,7 +21,7 @@ gulp.task('watch', function(){
 
   //Looks for any changes for css files in the modules folder
   // and then runs the cssInject task
-  watch('./styles/modules/**/*.css', function(){
+  watch('./styles/**/*.css', function(){
     gulp.start('cssInject');
   });
 
