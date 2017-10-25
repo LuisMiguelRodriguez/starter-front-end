@@ -1,1 +1,36 @@
+.panel-body a {
+  color: blue;
+}
 
+.modal-body {
+  color:black;
+}
+
+.modal-title {
+  color: black;
+}
+
+nav {
+  padding-top: 20px;
+  padding-bottom:10px;
+}
+
+.navbar-inverse {
+    background-color: #222;
+    border-color: #080808;
+    border-bottom: blue 10px solid;
+}
+
+.navbar-brand{
+  font-size: 4rem;
+}
+
+.jumbotron {
+  margin-top:100px;
+}
+.panel-primary>.panel-heading {
+  padding-bottom: 25px;
+}
+.panel-heading{
+  border-bottom: 25px;
+}

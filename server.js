@@ -46,20 +46,10 @@ db.once("open", function() {
 });
 
 
-
-
 // Set Handlebars as the default templating engine.
 app.engine("hbs", exphbs({ defaultLayout: "main", extname:'.hbs' }));
 app.set("view engine", "hbs");
 
-// Data
-var lunches = [
-  {
-    lunch: "Beet & Goat Cheese Salad with minestrone soup."
-  }, {
-    lunch: "Pizza, two double veggie burgers, fries with a big glup"
-  }
-];
 
 // Routes
 app.get("/scrape", function(req, res) {
@@ -73,26 +63,9 @@ app.get("/scrape", function(req, res) {
 
     var articles = [];
 
-    // var length = $('#articles ')
-    // .find('.col-md-18')
-    // .each(function(i, element){
-    //   console.log($(this).children("h3").text());
-    //   console.log($(this).children("a").attr("href"));
-    //   console.log($(this).html());
-    //   console.log('#########################');
-    // })
 
-    // console.log(articles.length);
-
-    // console.log(length);
-
-    // console.log(body);
     $('article .body').each(function(i, element){
 
-        // console.log($(this).children('h1').text());
-        // console.log($(this).children('h1').find("a").attr('href'));
-        // console.log($(this).children('p').text());
-        // console.log('##############################');
       var title       = $(this).children('h1').text();
       var link        = $(this).children('h1').find("a").attr('href');
       var description = $(this).children('p').text();
@@ -135,8 +108,8 @@ app.get('/', function(req, res){
 
 });
 
-
 app.post('/update', function(req, res){
+    console.log(req.body);
 
     Article.findByIdAndUpdate(req.body._id, {$set: { read: true}}, function(err, doc ){
 
@@ -152,6 +125,19 @@ app.post('/update', function(req, res){
 
 });
 
+app.post('/removeArticle',function(req, res){
+
+  Article.findByIdAndUpdate(req.body._id, {$set: { read: false}}, function(err, doc ){
+
+    if(err) throw err;
+
+    console.log(doc);
+
+    res.redirect('/savedArticles');
+  });
+
+});
+
 app.get('/savedArticles', function(req, res){
 
   Article.find({read: true}, function(err, docs){
@@ -163,30 +149,20 @@ app.get('/savedArticles', function(req, res){
 
 });
 
-app.post('/removeArticle',function(req, res){
+app.post('/note', function(req, res){
+  console.log(req.body)
 
-  Article.findByIdAndUpdate(req.body._id, {$set: { read: false}}, function(err, doc ){
+  var newNote = {
+    note: req.body.text
+  };
 
-    if(err) throw err;
-
-    console.log(doc);
-
-    res.redirect('/savedArticles');
-  })
-
+  Article.update({"_id": req.body._id}, {$push: {notes: newNote}},function (error, docs){
+    console.log(docs);
   });
 
-
-// app.get("/weekend", function(req, res) {
-//   res.render("index", lunches[1]);
-// });
-//
-// app.get("/lunches", function(req, res) {
-//   res.render("all-lunches", {
-//     foods: lunches,
-//     eater: "david"
-//   });
-// });
+});
 
 // Initiate the listener.
-app.listen(port);
+app.listen(port, function(){
+  console.log('Listening on port: ' + port);
+});
