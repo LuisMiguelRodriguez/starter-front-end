@@ -21,7 +21,7 @@ var ArticleSchema = new Schema({
   },
   read: {
     type: Boolean,
-    default: true
+    default: false
   },
   notes: [NoteSchema]
 });
