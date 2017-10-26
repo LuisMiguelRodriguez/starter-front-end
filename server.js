@@ -1,6 +1,6 @@
 // Dependencies
-var express    = require("express"),
-    exphbs     = require("express-handlebars"),
+var express    = require('express'),
+    exphbs     = require('express-handlebars'),
     mongoose   = require('mongoose'),
     bodyParser = require('body-parser'),
 
@@ -22,26 +22,26 @@ mongoose.Promise = Promise;
 var app = express();
 
 // Specify the port.
-var port = 3000;
+var  PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
 // Make public a static dir
-app.use(express.static("public"));
+app.use(express.static('public'));
 
 // Database configuration with mongoose
-mongoose.connect("mongodb://localhost/mongoscraper");
+mongoose.connect('mongodb://heroku_90jn865w:7bjcck95abt834sfdqnh2p9m8m@ds235775.mlab.com:35775/heroku_90jn865w');
 var db = mongoose.connection;
 
 // Show any mongoose errors
-db.on("error", function(error) {
+db.on("error", function (error) {
   console.log("Mongoose Error: ", error);
 });
 
 // Once logged in to the db through mongoose, log a success message
-db.once("open", function() {
+db.once("open", function () {
   console.log("Mongoose connection successful.");
 });
 
