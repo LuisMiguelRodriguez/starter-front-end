@@ -9,8 +9,7 @@ var NoteSchema = new Schema({ note: String });
 var ArticleSchema = new Schema({
   // title is a required string
   title: {
-    type: String,
-    required: true
+    type: String
   },
   // link is a required string
   link: {
@@ -18,12 +17,11 @@ var ArticleSchema = new Schema({
     required: true
   },
   description: {
-    type: String,
-    required: true
+    type: String
   },
   read: {
     type: Boolean,
-    default: false
+    default: true
   },
   notes: [NoteSchema]
 });

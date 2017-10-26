@@ -73,7 +73,7 @@ app.get("/scrape", function(req, res) {
       var x = {
         title: title,
         link: link,
-        description: description
+        description: description,
       };
 
 
@@ -97,9 +97,17 @@ app.get("/scrape", function(req, res) {
 
     console.log("----------------------------");
     console.log(articles);
+    
+    Article.find({}, function(err, docs){
+     console.log(docs);
 
-      res.render("index" , {articles: articles});
+     res.render('index' , {articles: docs})
+
+    });
+
+
   });
+
 
 });
 
