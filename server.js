@@ -163,6 +163,6 @@ app.post('/note', function(req, res){
 });
 
 // Initiate the listener.
-app.listen(port, function(){
-  console.log('Listening on port: ' + port);
+app.listen(PORT, function(){
+  console.log('Listening on port: ' + PORT);
 });
